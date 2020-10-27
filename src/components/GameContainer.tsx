@@ -1,8 +1,10 @@
 import React, { memo, useEffect, useRef } from "react";
+import { useStore } from "react-redux";
 import { loadGame } from "../game";
 
 export default memo(
-  (props: any) => {
+  () => {
+    const store = useStore();
     const container = useRef<null | HTMLElement>(null);
     const game = useRef<null | Phaser.Game>(null);
 
@@ -13,7 +15,7 @@ export default memo(
         setImmediate(() =>
           game
             .current!.scene.getScenes()
-            .forEach((scene) => scene.data.set("store", props.store))
+            .forEach((scene) => scene.data.set("store", store))
         );
       }
     });
