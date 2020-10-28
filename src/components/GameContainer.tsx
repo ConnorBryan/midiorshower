@@ -1,6 +1,7 @@
 import React, { memo, useEffect, useRef } from "react";
 import { useStore } from "react-redux";
 import { loadGame } from "../game";
+import Panel from "./Panel";
 
 export default memo(
   () => {
@@ -15,14 +16,9 @@ export default memo(
     });
 
     return (
-      <fieldset
-        style={{
-          padding: 10,
-        }}
-      >
-        <legend>Game</legend>
+      <Panel title="Game">
         <main ref={container} />
-      </fieldset>
+      </Panel>
     );
   },
   () => true

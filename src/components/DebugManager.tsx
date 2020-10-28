@@ -1,6 +1,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectors, scoreSlice } from "../store";
+import Panel from "./Panel";
 
 interface FieldProps {
   name: string;
@@ -30,12 +31,7 @@ export default function DebugManager() {
   const { score } = useSelector(selectors.score.getDebugValues);
 
   return (
-    <fieldset
-      style={{
-        padding: 10,
-      }}
-    >
-      <legend>Debug</legend>
+    <Panel title="Debug">
       <Field
         name="score"
         label="Score"
@@ -45,6 +41,6 @@ export default function DebugManager() {
           dispatch(scoreSlice.actions.scoreSet(parseInt(value)))
         }
       />
-    </fieldset>
+    </Panel>
   );
 }
