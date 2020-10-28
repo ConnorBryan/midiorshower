@@ -1,14 +1,18 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+import { playerSlice } from "./slices";
 
 const initialState = {
   score: 0,
 };
 
-type GameState = typeof initialState;
+type GameState = {
+  score: typeof initialState;
+};
 type GameKey = keyof GameState;
 
-export const slice = createSlice({
-  name: "slice",
+export const scoreSlice = createSlice({
+  name: "score",
   initialState,
   reducers: {
     scored(state, { payload }) {
@@ -24,7 +28,7 @@ export const slice = createSlice({
 });
 
 export const selectors = {
-  getScore: (state: GameState) => state.score,
+  getScore: (state: GameState) => state.score.score,
   getDebugValues: (state: GameState) => {
     const values: Record<GameKey, string | number> = {
       score: selectors.getScore(state),
@@ -41,6 +45,9 @@ export type ConfiguredStore = ReturnType<typeof createStore>;
 
 export default function createStore() {
   return configureStore({
-    reducer: slice.reducer,
+    reducer: combineReducers({
+      player: playerSlice.reducer,
+      score: scoreSlice.reducer,
+    }),
   });
 }

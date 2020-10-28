@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectors, slice } from "../store";
+import { selectors, scoreSlice } from "../store";
 
 interface FieldProps {
   name: string;
@@ -42,7 +42,7 @@ export default function DebugManager() {
         type="number"
         value={score}
         onChange={({ target: { value } }) =>
-          dispatch(slice.actions.scoreSet(parseInt(value)))
+          dispatch(scoreSlice.actions.scoreSet(parseInt(value)))
         }
       />
     </fieldset>
