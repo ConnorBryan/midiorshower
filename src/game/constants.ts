@@ -7,3 +7,7 @@ export const SYSTEM_KEYS = {
 export const SCENE_KEYS = {
   Battle: "battle",
 };
+
+export const ENTITY_KEYS = {
+  Player: "player",
+};
