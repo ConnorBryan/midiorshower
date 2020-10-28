@@ -1,6 +1,6 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-const playerAdapter = createEntityAdapter<Phlaser.Player>();
+export const playerAdapter = createEntityAdapter<Phlaser.Player>();
 
 const playerSlice = createSlice({
   name: "player",

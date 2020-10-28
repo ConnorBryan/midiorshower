@@ -27,7 +27,7 @@ function Field(props: FieldProps) {
 
 export default function DebugManager() {
   const dispatch = useDispatch();
-  const { score } = useSelector(selectors.getDebugValues);
+  const { score } = useSelector(selectors.score.getDebugValues);
 
   return (
     <fieldset

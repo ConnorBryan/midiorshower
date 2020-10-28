@@ -1,6 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
-import { playerSlice } from "./slices";
+import { playerAdapter, playerSlice } from "./slices";
 
 const initialState = {
   score: 0,
@@ -27,23 +27,7 @@ export const scoreSlice = createSlice({
   },
 });
 
-export const selectors = {
-  getScore: (state: GameState) => state.score.score,
-  getDebugValues: (state: GameState) => {
-    const values: Record<GameKey, string | number> = {
-      score: selectors.getScore(state),
-    };
-
-    return Object.keys(values).reduce((prev, next) => {
-      (prev as any)[next] = (values as any)[next].toString();
-      return prev;
-    }, {} as Record<GameKey, string>);
-  },
-};
-
-export type ConfiguredStore = ReturnType<typeof createStore>;
-
-export default function createStore() {
+function createStore() {
   return configureStore({
     reducer: combineReducers({
       player: playerSlice.reducer,
@@ -51,3 +35,32 @@ export default function createStore() {
     }),
   });
 }
+
+export type ConfiguredStore = ReturnType<typeof createStore>;
+
+const store = createStore();
+
+export type PhlaserState = ReturnType<typeof store.getState>;
+export type PhlaserStateKey = keyof PhlaserState;
+
+export default createStore;
+
+export * from "./slices";
+
+export const selectors = {
+  score: {
+    getScore: (state: GameState) => state.score.score,
+    getDebugValues: (state: GameState) => {
+      const values: Record<GameKey, string | number> = {
+        score: selectors.score.getScore(state),
+      };
+
+      return Object.keys(values).reduce((prev, next) => {
+        (prev as any)[next] = (values as any)[next].toString();
+        return prev;
+      }, {} as Record<GameKey, string>);
+    },
+  },
+  //
+  player: playerAdapter.getSelectors<PhlaserState>((state) => state.player),
+};

@@ -1,9 +1,9 @@
-import { Store } from "redux";
+import { ConfiguredStore } from "../../store";
 
 export default class StorePlugin extends Phaser.Plugins.BasePlugin {
-  store!: Store<any, any>;
+  store!: ConfiguredStore;
 
-  init(store: Store<any, any>) {
+  init(store: ConfiguredStore) {
     this.store = store;
   }
 }
