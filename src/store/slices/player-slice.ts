@@ -1,13 +1,23 @@
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
-import { ENTITY_KEYS } from "../../constants";
+import {
+  ENTITY_KEYS,
+  WEAPON_KEYS,
+  PADDLE_CONDITION_KEYS,
+} from "../../constants";
 import { battleStarted } from "./actions";
 
 export const playerAdapter = createEntityAdapter<Phlaser.Player.Player>();
 
 const defaultPlayerValues = {
-  life: 100,
-  energy: 100,
   extraLives: 2,
+  paddle: {
+    life: 100,
+    energy: 100,
+    isFiring: false,
+    hasRecentlyTakenDamage: false,
+    condition: PADDLE_CONDITION_KEYS.Full,
+    weapon: WEAPON_KEYS.Laser,
+  },
 };
 
 const playerSlice = createSlice({

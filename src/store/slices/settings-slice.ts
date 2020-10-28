@@ -12,7 +12,6 @@ const settingsSlice = createSlice({
   extraReducers: (builder) =>
     builder.addCase(debugMenuUpdated, (state, action) => {
       const { settingsKey, key, value } = action.payload;
-      console.log({ settingsKey, key, value });
       (state as any)[settingsKey][key] = value;
     }),
 });

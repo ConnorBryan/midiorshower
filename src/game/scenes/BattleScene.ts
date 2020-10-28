@@ -25,7 +25,16 @@ export default class BattleScene extends BaseScene {
 
     (ball.body as Phaser.Physics.Arcade.Body)
       .setCollideWorldBounds(true)
-      .setBounce(1, 1);
+      .setBounce(0.5, 0.5)
+      .setVelocityX(100).onWorldBounds = true;
+
+    this.physics.world.on(
+      Phaser.Physics.Arcade.Events.WORLD_BOUNDS,
+      () => {
+        console.log(this.store.getState());
+      },
+      this
+    );
   }
 
   update() {}
