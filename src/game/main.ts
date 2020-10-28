@@ -1,10 +1,12 @@
 import Phaser from "phaser";
-import { Store } from "redux";
 import { DEBUG_ENABLED, SYSTEM_KEYS } from "../constants";
+import { ConfiguredStore } from "../store";
 import { StorePlugin } from "./plugins";
 import { BattleScene } from "./scenes";
 
-export default function loadGame(parent: HTMLElement, store: Store<any, any>) {
+export default function loadGame(parent: HTMLElement, store: ConfiguredStore) {
+  const { settings } = store.getState();
+
   return new Phaser.Game({
     parent,
     type: Phaser.AUTO,
@@ -13,7 +15,7 @@ export default function loadGame(parent: HTMLElement, store: Store<any, any>) {
     physics: {
       default: "arcade",
       arcade: {
-        gravity: { y: 4500 },
+        gravity: { y: settings.gravity },
         debug: DEBUG_ENABLED,
       },
     },

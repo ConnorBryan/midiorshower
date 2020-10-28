@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectors, scoreSlice } from "../store";
+import { selectors, debugMenuUpdated } from "../store";
 import Panel from "./Panel";
 
 interface FieldProps {
@@ -8,10 +8,11 @@ interface FieldProps {
   label: string;
   type: "text" | "number";
   value: string;
-  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 function Field(props: FieldProps) {
+  const dispatch = useDispatch();
+
   return (
     <>
       <label htmlFor={props.name}>{props.label}</label>
@@ -20,26 +21,24 @@ function Field(props: FieldProps) {
         name={props.name}
         type={props.type}
         value={props.value}
-        onChange={props.onChange}
+        onChange={({ target: { value } }) =>
+          dispatch(debugMenuUpdated(props.name, value))
+        }
       />
     </>
   );
 }
 
 export default function DebugManager() {
-  const dispatch = useDispatch();
-  const { score } = useSelector(selectors.score.getDebugValues);
+  const { gravity } = useSelector(selectors.settings.getSettings);
 
   return (
     <Panel title="Debug">
       <Field
-        name="score"
-        label="Score"
+        name="gravity"
+        label="Gravity"
         type="number"
-        value={score}
-        onChange={({ target: { value } }) =>
-          dispatch(scoreSlice.actions.scoreSet(parseInt(value)))
-        }
+        value={gravity.toString()}
       />
     </Panel>
   );

@@ -1,5 +1,6 @@
+import Phaser from "phaser";
 import { SCENE_KEYS } from "../../constants";
-import { battleStarted, scoreSlice } from "../../store";
+import { battleStarted } from "../../store";
 import BaseScene from "./BaseScene";
 
 export default class BattleScene extends BaseScene {
@@ -12,12 +13,17 @@ export default class BattleScene extends BaseScene {
   create() {
     this.store.dispatch(battleStarted());
 
-    this.time.addEvent({
-      delay: 1,
-      callback: () => this.store.dispatch(scoreSlice.actions.scored(1)),
-      callbackScope: this,
-      loop: true,
-    });
+    const ball = this.add.circle(
+      this.scale.width / 2,
+      this.scale.height / 2,
+      30,
+      0xffffff
+    );
+
+    this.physics.add.existing(ball);
+    this.physics.world.setBounds(0, 0, this.scale.width, this.scale.height);
+
+    (ball.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(true);
   }
 
   update() {}

@@ -14,4 +14,5 @@ export const ENTITY_KEYS = {
 
 export const EVENT_KEYS = {
   BattleStarted: "battleStarted",
+  DebugMenuUpdated: "debugMenuUpdated",
 };
