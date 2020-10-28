@@ -1,12 +1,13 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { selectors } from "../store";
+import { useDispatch, useSelector } from "react-redux";
+import { selectors, slice } from "../store";
 
 interface FieldProps {
   name: string;
   label: string;
   type: "text" | "number";
   value: string;
+  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
 }
 
 function Field(props: FieldProps) {
@@ -18,13 +19,14 @@ function Field(props: FieldProps) {
         name={props.name}
         type={props.type}
         value={props.value}
-        onChange={() => {}}
+        onChange={props.onChange}
       />
     </>
   );
 }
 
 export default function DebugManager() {
+  const dispatch = useDispatch();
   const { score } = useSelector(selectors.getDebugValues);
 
   return (
@@ -34,7 +36,15 @@ export default function DebugManager() {
       }}
     >
       <legend>Debug</legend>
-      <Field name="score" label="Score" type="number" value={score} />
+      <Field
+        name="score"
+        label="Score"
+        type="number"
+        value={score}
+        onChange={({ target: { value } }) =>
+          dispatch(slice.actions.scoreSet(parseInt(value)))
+        }
+      />
     </fieldset>
   );
 }

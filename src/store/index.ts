@@ -14,6 +14,9 @@ export const slice = createSlice({
     scored(state, { payload }) {
       state.score += payload;
     },
+    scoreSet(state, { payload }) {
+      state.score = Math.max(0, payload);
+    },
     scoreReset(state) {
       state.score = 0;
     },
