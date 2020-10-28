@@ -10,17 +10,20 @@ export default memo(
 
     useEffect(() => {
       if (container.current && !game.current) {
-        game.current = loadGame(container.current);
-
-        setImmediate(() =>
-          game
-            .current!.scene.getScenes()
-            .forEach((scene) => scene.data.set("store", store))
-        );
+        game.current = loadGame(container.current, store);
       }
     });
 
-    return <main ref={container} />;
+    return (
+      <fieldset
+        style={{
+          padding: 10,
+        }}
+      >
+        <legend>Game</legend>
+        <main ref={container} />
+      </fieldset>
+    );
   },
   () => true
 );

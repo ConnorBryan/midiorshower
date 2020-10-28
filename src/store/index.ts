@@ -37,6 +37,8 @@ export const selectors = {
   },
 };
 
+export type ConfiguredStore = ReturnType<typeof createStore>;
+
 export default function createStore() {
   return configureStore({
     reducer: slice.reducer,

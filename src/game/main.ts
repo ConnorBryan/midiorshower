@@ -1,8 +1,10 @@
 import Phaser from "phaser";
-import { DEBUG_ENABLED } from "./constants";
+import { Store } from "redux";
+import { DEBUG_ENABLED, SYSTEM_KEYS } from "./constants";
+import { StorePlugin } from "./plugins";
 import { BattleScene } from "./scenes";
 
-export default function loadGame(parent: HTMLElement) {
+export default function loadGame(parent: HTMLElement, store: Store<any, any>) {
   return new Phaser.Game({
     parent,
     type: Phaser.AUTO,
@@ -16,5 +18,15 @@ export default function loadGame(parent: HTMLElement) {
       },
     },
     scene: [BattleScene],
+    plugins: {
+      global: [
+        {
+          key: SYSTEM_KEYS.Store,
+          start: true,
+          plugin: StorePlugin,
+          data: store,
+        },
+      ],
+    },
   });
 }
