@@ -5,8 +5,8 @@ export const battleStarted = createAction(EVENT_KEYS.BattleStarted);
 
 export const debugMenuUpdated = createAction(
   EVENT_KEYS.DebugMenuUpdated,
-  (key: string, value: string | number) => ({
-    payload: { key, value },
+  (settingsKey: string, key: string, value: string | number) => ({
+    payload: { settingsKey, key, value },
     value,
   })
 );

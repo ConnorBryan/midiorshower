@@ -4,14 +4,16 @@ import { debugMenuUpdated } from "./actions";
 const settingsSlice = createSlice({
   name: "settings",
   initialState: {
-    gravity: 1000,
+    physics: {
+      gravity: 1000,
+    },
   },
   reducers: {},
   extraReducers: (builder) =>
     builder.addCase(debugMenuUpdated, (state, action) => {
-      const { key, value } = action.payload;
-
-      (state as any)[key] = value;
+      const { settingsKey, key, value } = action.payload;
+      console.log({ settingsKey, key, value });
+      (state as any)[settingsKey][key] = value;
     }),
 });
 

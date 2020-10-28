@@ -23,7 +23,9 @@ export default class BattleScene extends BaseScene {
     this.physics.add.existing(ball);
     this.physics.world.setBounds(0, 0, this.scale.width, this.scale.height);
 
-    (ball.body as Phaser.Physics.Arcade.Body).setCollideWorldBounds(true);
+    (ball.body as Phaser.Physics.Arcade.Body)
+      .setCollideWorldBounds(true)
+      .setBounce(1, 1);
   }
 
   update() {}

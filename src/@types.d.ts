@@ -1,8 +1,13 @@
 declare namespace Phlaser {
-  type PlayerDirection = "left" | "right";
+  declare namespace Player {
+    type Direction = "left" | "right";
 
-  type Player = {
-    id: string;
-    direction: PlayerDirection;
-  };
+    type Player = {
+      id: string;
+      direction: PlayerDirection;
+      extraLives: number;
+      life: number;
+      energy: number;
+    };
+  }
 }

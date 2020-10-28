@@ -15,7 +15,7 @@ export default function loadGame(parent: HTMLElement, store: ConfiguredStore) {
     physics: {
       default: "arcade",
       arcade: {
-        gravity: { y: settings.gravity },
+        gravity: { y: settings.physics.gravity },
         debug: DEBUG_ENABLED,
       },
     },

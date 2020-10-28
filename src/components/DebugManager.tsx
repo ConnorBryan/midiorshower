@@ -4,9 +4,10 @@ import { selectors, debugMenuUpdated } from "../store";
 import Panel from "./Panel";
 
 interface FieldProps {
-  name: string;
   label: string;
   type: "text" | "number";
+  settingsKey: string;
+  settingKey: string;
   value: string;
 }
 
@@ -15,14 +16,14 @@ function Field(props: FieldProps) {
 
   return (
     <>
-      <label htmlFor={props.name}>{props.label}</label>
+      <label htmlFor={props.settingKey}>{props.label}</label>
       <br />
       <input
-        name={props.name}
+        name={props.settingKey}
         type={props.type}
         value={props.value}
         onChange={({ target: { value } }) =>
-          dispatch(debugMenuUpdated(props.name, value))
+          dispatch(debugMenuUpdated(props.settingsKey, props.settingKey, value))
         }
       />
     </>
@@ -30,15 +31,16 @@ function Field(props: FieldProps) {
 }
 
 export default function DebugManager() {
-  const { gravity } = useSelector(selectors.settings.getSettings);
+  const { physics } = useSelector(selectors.settings.getSettings);
 
   return (
     <Panel title="Debug">
       <Field
-        name="gravity"
         label="Gravity"
         type="number"
-        value={gravity.toString()}
+        settingsKey="physics"
+        settingKey="gravity"
+        value={physics.gravity.toString()}
       />
     </Panel>
   );
