@@ -1,4 +1,4 @@
-export const DEBUG_ENABLED = true;
+export const DEBUG_ENABLED = false;
 
 export const SYSTEM_KEYS = {
   Store: "store",
@@ -31,4 +31,10 @@ export const PADDLE_CONDITION_KEYS: Record<
   OneQuarter: "OneQuarter",
   One: "One",
   Dead: "Dead",
+};
+
+export const COLOR_KEYS = {
+  Blue: 0x0000ff,
+  White: 0xffffff,
+  Black: 0x000000,
 };

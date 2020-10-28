@@ -1,9 +1,12 @@
 import Phaser from "phaser";
-import { SCENE_KEYS } from "../../constants";
+import { COLOR_KEYS, SCENE_KEYS } from "../../constants";
 import { battleStarted } from "../../store";
 import BaseScene from "./BaseScene";
 
 export default class BattleScene extends BaseScene {
+  ball!: Phaser.GameObjects.Arc;
+  wall!: Phaser.GameObjects.Rectangle;
+
   constructor() {
     super(SCENE_KEYS.Battle);
   }
@@ -13,6 +16,35 @@ export default class BattleScene extends BaseScene {
   create() {
     this.store.dispatch(battleStarted());
 
+    this.createBall();
+    this.createWall();
+
+    this.ball.on(Phaser.Physics.Arcade.Events.COLLIDE, console.log);
+
+    this.physics.add.collider(this.wall, this.ball);
+
+    this.physics.world.setBounds(0, 0, this.scale.width, this.scale.height);
+    this.physics.world.on(
+      Phaser.Physics.Arcade.Events.COLLIDE,
+      (a: Phaser.GameObjects.Shape, b: Phaser.GameObjects.Shape) => {
+        [a, b].forEach((participant) => {
+          if (participant === this.ball) {
+            this.ball.setScale(this.ball.scale - 0.2);
+
+            if (this.ball.scale <= 0) {
+              this.scene.restart();
+            }
+          }
+        });
+      }
+    );
+  }
+
+  update() {}
+
+  //
+
+  createBall() {
     const ball = this.add.circle(
       this.scale.width / 2,
       this.scale.height / 2,
@@ -21,21 +53,32 @@ export default class BattleScene extends BaseScene {
     );
 
     this.physics.add.existing(ball);
-    this.physics.world.setBounds(0, 0, this.scale.width, this.scale.height);
 
     (ball.body as Phaser.Physics.Arcade.Body)
       .setCollideWorldBounds(true)
-      .setBounce(0.5, 0.5)
-      .setVelocityX(100).onWorldBounds = true;
+      .setBounce(1, 1)
+      .setVelocity(500).onCollide = true;
 
-    this.physics.world.on(
-      Phaser.Physics.Arcade.Events.WORLD_BOUNDS,
-      () => {
-        console.log(this.store.getState());
-      },
-      this
-    );
+    this.ball = ball;
   }
 
-  update() {}
+  createWall() {
+    const wall = this.add
+      .rectangle(
+        this.scale.width / 2,
+        this.scale.height,
+        10,
+        this.scale.height,
+        COLOR_KEYS.Black
+      )
+      .setStrokeStyle(3, COLOR_KEYS.White);
+
+    this.physics.add.existing(wall);
+
+    (wall.body as Phaser.Physics.Arcade.Body)
+      .setAllowGravity(false)
+      .setImmovable(true);
+
+    this.wall = wall;
+  }
 }

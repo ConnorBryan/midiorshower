@@ -37,6 +37,4 @@ declare namespace Phlaser {
     variation: number;
     reflectChance: number;
   };
-
-  type Colors = Record<string, number>;
 }
