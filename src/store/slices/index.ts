@@ -6,4 +6,5 @@ export const sliceLookup = {
 };
 
 export { playerSlice };
+export * from "./actions";
 export * from "./player-slice";

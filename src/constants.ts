@@ -11,3 +11,7 @@ export const SCENE_KEYS = {
 export const ENTITY_KEYS = {
   Player: "player",
 };
+
+export const EVENT_KEYS = {
+  BattleStarted: "battleStarted",
+};
