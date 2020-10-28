@@ -1,4 +1,4 @@
-import { SCENE_KEYS } from "../constants";
+import { SCENE_KEYS } from "../../constants";
 import BaseScene from "./BaseScene";
 
 export default class BattleScene extends BaseScene {

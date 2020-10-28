@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { Store } from "redux";
-import { DEBUG_ENABLED, SYSTEM_KEYS } from "./constants";
+import { DEBUG_ENABLED, SYSTEM_KEYS } from "../constants";
 import { StorePlugin } from "./plugins";
 import { BattleScene } from "./scenes";
 

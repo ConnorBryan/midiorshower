@@ -6,7 +6,7 @@ import {
   PhlaserStateKey,
   selectors,
 } from "../../store";
-import { SYSTEM_KEYS } from "../constants";
+import { SYSTEM_KEYS } from "../../constants";
 import { StorePlugin } from "../plugins";
 
 export default class BaseEntity<T> extends Phaser.GameObjects.GameObject {

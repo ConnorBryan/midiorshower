@@ -1,5 +1,5 @@
 import Phaser from "phaser";
-import { ENTITY_KEYS } from "../constants";
+import { ENTITY_KEYS } from "../../constants";
 import BaseEntity from "./BaseEntity";
 
 export default class Player extends BaseEntity<Phlaser.Player> {

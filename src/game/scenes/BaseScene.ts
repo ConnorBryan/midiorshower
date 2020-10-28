@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import { ConfiguredStore } from "../../store";
-import { SYSTEM_KEYS } from "../constants";
+import { SYSTEM_KEYS } from "../../constants";
 import { StorePlugin } from "../plugins";
 
 export default class BaseScene extends Phaser.Scene {
