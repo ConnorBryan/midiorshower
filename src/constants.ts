@@ -1,4 +1,4 @@
-export const DEBUG_ENABLED = false;
+export const DEBUG_ENABLED = true;
 
 export const SYSTEM_KEYS = {
   Store: "store",
