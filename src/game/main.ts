@@ -1,12 +1,10 @@
 import Phaser from "phaser";
-import { DEBUG_ENABLED, SYSTEM_KEYS } from "../constants";
-import { ConfiguredStore } from "../store";
+import { DEBUG_ENABLED, SYSTEM_KEYS } from "keys";
+import { ConfiguredStore } from "store";
 import { StorePlugin } from "./plugins";
-import { BattleScene } from "./scenes";
+import { TestScene } from "./scenes";
 
 export default function loadGame(parent: HTMLElement, store: ConfiguredStore) {
-  const { settings } = store.getState();
-
   return new Phaser.Game({
     parent,
     type: Phaser.AUTO,
@@ -15,11 +13,11 @@ export default function loadGame(parent: HTMLElement, store: ConfiguredStore) {
     physics: {
       default: "arcade",
       arcade: {
-        gravity: { y: settings.physics.gravity },
+        gravity: { y: 1000 },
         debug: DEBUG_ENABLED,
       },
     },
-    scene: [BattleScene],
+    scene: [TestScene],
     plugins: {
       global: [
         {

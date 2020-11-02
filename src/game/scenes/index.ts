@@ -1,1 +1,1 @@
-export { default as BattleScene } from "./BattleScene";
+export { default as TestScene } from "./TestScene";

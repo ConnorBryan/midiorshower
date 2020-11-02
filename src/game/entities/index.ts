@@ -1,1 +1,1 @@
-export { default as Player } from "./PlayerEntity";
+export { default as BaseEntity } from "./BaseEntity";

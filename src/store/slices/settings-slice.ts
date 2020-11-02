@@ -1,19 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { debugMenuUpdated } from "./actions";
+import { REDUCER_KEYS } from "keys";
 
-const settingsSlice = createSlice({
-  name: "settings",
-  initialState: {
-    physics: {
-      gravity: 1000,
-    },
-  },
+export default createSlice({
+  name: REDUCER_KEYS.Settings,
+  initialState: {},
   reducers: {},
-  extraReducers: (builder) =>
-    builder.addCase(debugMenuUpdated, (state, action) => {
-      const { settingsKey, key, value } = action.payload;
-      (state as any)[settingsKey][key] = value;
-    }),
 });
-
-export default settingsSlice;

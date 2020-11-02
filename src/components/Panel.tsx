@@ -2,7 +2,7 @@ import React from "react";
 
 interface Props {
   title: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export default function Panel(props: Props) {
