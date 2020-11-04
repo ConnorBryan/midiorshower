@@ -5,6 +5,8 @@ interface Props {
   children?: React.ReactNode;
 }
 
+type GroupProps = Pick<Props, "children">;
+
 export default function Panel(props: Props) {
   return (
     <fieldset
@@ -24,3 +26,14 @@ export default function Panel(props: Props) {
     </fieldset>
   );
 }
+
+Panel.Panels = function Panels(props: GroupProps) {
+  return (
+    <div
+      style={{
+        display: "flex",
+      }}
+      {...props}
+    />
+  );
+};

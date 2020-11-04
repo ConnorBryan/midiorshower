@@ -1,22 +1,12 @@
-import React, { useRef } from "react";
-import { Provider } from "react-redux";
-import { DebugManager, GameContainer } from "components";
-import { createStore } from "store";
+import React from "react";
+import { GameContainer, Panel } from "components";
 
 export default function App() {
-  const store = useRef(createStore());
-
   return (
-    <Provider store={store.current}>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-        }}
-      >
+    <Panel.Panels>
+      <Panel title="Game">
         <GameContainer />
-        <DebugManager />
-      </div>
-    </Provider>
+      </Panel>
+    </Panel.Panels>
   );
 }
