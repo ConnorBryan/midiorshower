@@ -1,7 +1,11 @@
 export const DEBUG_ENABLED = true;
 
-export const SCENE_KEYS = {};
+export enum SceneKeys {}
 
-export const ENTITY_KEYS = {};
+export enum SystemKeys {
+  Midi = "Midi",
+}
 
-export const COLOR_KEYS = {};
+export enum EntityKeys {}
+
+export enum ColorKeys {}

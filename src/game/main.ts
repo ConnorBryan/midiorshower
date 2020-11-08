@@ -1,5 +1,6 @@
 import Phaser from "phaser";
-import { DEBUG_ENABLED } from "keys";
+import { DEBUG_ENABLED, SystemKeys } from "keys";
+import { MidiPlugin } from "../plugins";
 import { TestScene } from "./scenes";
 
 export default function loadGame(parent: HTMLElement) {
@@ -16,5 +17,14 @@ export default function loadGame(parent: HTMLElement) {
       },
     },
     scene: [TestScene],
+    plugins: {
+      global: [
+        {
+          key: SystemKeys.Midi,
+          start: true,
+          plugin: MidiPlugin,
+        },
+      ],
+    },
   });
 }
