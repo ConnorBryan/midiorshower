@@ -6,6 +6,7 @@ import { TestScene } from "./scenes";
 export default function loadGame(parent: HTMLElement) {
   return new Phaser.Game({
     parent,
+    backgroundColor: 0xfefefe,
     type: Phaser.AUTO,
     width: 800,
     height: 600,
