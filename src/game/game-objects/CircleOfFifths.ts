@@ -1,4 +1,6 @@
 import Phaser from "phaser";
+import { SystemKeys } from "keys";
+import { MidiPlugin } from "plugins";
 
 const CIRCLE_OF_FIFTHS_NOTE_BLOCK_SIZE = 64;
 const CIRCLE_OF_FIFTHS_X_OFFSET = CIRCLE_OF_FIFTHS_NOTE_BLOCK_SIZE / 2;
@@ -29,13 +31,15 @@ const fourthSet = notes.slice(9);
 export default class CircleOfFifths extends Phaser.GameObjects.GameObject {
   rectangleLookup: Record<string, Phaser.GameObjects.Shape> = {};
   textLookup: Record<string, Phaser.GameObjects.Text> = {};
+  midi!: MidiPlugin;
 
   constructor(scene: Phaser.Scene) {
     super(scene, "circleOfFifths");
 
-    (window as any).notes = this.rectangleLookup;
+    (window as any).circle = this;
 
     this.init();
+    this.listenForInput();
   }
 
   init() {
@@ -64,6 +68,31 @@ export default class CircleOfFifths extends Phaser.GameObjects.GameObject {
           })
           .setOrigin(0, 0.5);
       });
+    });
+  }
+
+  listenForInput() {
+    this.midi = this.scene.plugins.get(SystemKeys.Midi) as MidiPlugin;
+    this.midi.register(this);
+    this.on(MidiPlugin.INPUT_RECEIVED, (event) => {
+      const { name } = event.note;
+
+      if (this.rectangleLookup[name]) {
+        this.rectangleLookup[name].destroy();
+        this.textLookup[name].destroy();
+      } else {
+        // Check for accidental.
+        const [letter] = name.split("");
+        const letterIndex = notes.findIndex((note) => note === letter);
+        const accidentalIndex = letterIndex + 1;
+
+        if (accidentalIndex > -1) {
+          const accidental = notes[accidentalIndex];
+
+          this.rectangleLookup[accidental].destroy();
+          this.textLookup[accidental].destroy();
+        }
+      }
     });
   }
 }
